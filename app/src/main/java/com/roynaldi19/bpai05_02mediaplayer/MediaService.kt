@@ -1,12 +1,17 @@
 package com.roynaldi19.bpai05_02mediaplayer
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.*
 import android.text.BoringLayout
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import java.io.IOException
 import java.lang.ref.WeakReference
 
@@ -67,6 +72,7 @@ class MediaService : Service(), MediaPlayerCallback {
         mediaPlayer?.setOnPreparedListener {
             isReady = true
             mediaPlayer?.start()
+            showNotif()
         }
         mediaPlayer?.setOnErrorListener { _, _, _ -> false }
     }
@@ -80,6 +86,7 @@ class MediaService : Service(), MediaPlayerCallback {
                 mediaPlayer?.pause()
             } else {
                 mediaPlayer?.start()
+                showNotif()
             }
         }
 
@@ -89,6 +96,7 @@ class MediaService : Service(), MediaPlayerCallback {
         if (mediaPlayer?.isPlaying as Boolean || isReady) {
             mediaPlayer?.stop()
             isReady = false
+            stopNotif()
         }
 
     }
@@ -108,4 +116,42 @@ class MediaService : Service(), MediaPlayerCallback {
             }
         }
     }
+
+    private fun showNotif() {
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        notificationIntent.flags = Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        }
+        val notification = NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+            .setContentTitle("TES1")
+            .setContentText("TES2")
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentIntent(pendingIntent)
+            .setTicker("TES3")
+            .build()
+        createChannel(CHANNEL_DEFAULT_IMPORTANCE)
+        startForeground(ONGOING_NOTIFICATION_ID, notification)
+    }
+
+    private fun createChannel(CHANNEL_ID: String) {
+        val mNotificationManager =
+            applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID, "Battery",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.setShowBadge(false)
+            channel.setSound(null, null)
+            mNotificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun stopNotif() {
+        stopForeground(false)
+    }
+
 }
