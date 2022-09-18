@@ -8,7 +8,6 @@ import com.roynaldi19.bpai05_02mediaplayer.databinding.ActivityMainBinding
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private var mediaPlayer: MediaPlayer? = null
     private var isReady: Boolean = false
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        
         binding.btnPlay.setOnClickListener {
             if (!isReady) {
                 mediaPlayer?.prepareAsync()
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         binding.btnStop.setOnClickListener {
             if (mediaPlayer?.isPlaying as Boolean || isReady) {
                 mediaPlayer?.stop()
