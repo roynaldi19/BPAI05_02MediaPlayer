@@ -1,4 +1,4 @@
-package com.roynaldi19.bpai05_02mediaplayer
+package com.roynaldi19.dc4_05mediaplayer
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

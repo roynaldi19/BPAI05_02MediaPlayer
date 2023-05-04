@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.roynaldi19.bpai05_02mediaplayer">
+    package="com.roynaldi19.dc4_05mediaplayer">
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
@@ -15,14 +15,14 @@
         android:theme="@style/Theme.BPAI05_02MediaPlayer"
         tools:targetApi="31">
         <service
-            android:name=".MediaService"
+            android:name="com.roynaldi19.dc4_05mediaplayer.MediaService"
             android:enabled="true"
             android:exported="true">
 
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.roynaldi19.dc4_05mediaplayer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

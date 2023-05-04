@@ -1,4 +1,4 @@
-package com.roynaldi19.bpai05_02mediaplayer
+package com.roynaldi19.dc4_05mediaplayer
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,7 +9,6 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.*
-import android.text.BoringLayout
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import java.io.IOException

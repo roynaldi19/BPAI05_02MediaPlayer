@@ -1,16 +1,13 @@
-package com.roynaldi19.bpai05_02mediaplayer
+package com.roynaldi19.dc4_05mediaplayer
 
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.roynaldi19.bpai05_02mediaplayer.databinding.ActivityMainBinding
-import java.io.IOException
+import com.roynaldi19.dc4_05mediaplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BPAI05_02MediaPlayer</string>
+    <string name="app_name">DC4_05MediaPlayer</string>
     <string name="btn_text_play">Play</string>
     <string name="text_mediaplayer">Test Mediaplayer</string>
     <string name="btn_text_stop">Stop</string>

@@ -1,4 +1,4 @@
-package com.roynaldi19.bpai05_02mediaplayer
+package com.roynaldi19.dc4_05mediaplayer
 
 import org.junit.Test
 
