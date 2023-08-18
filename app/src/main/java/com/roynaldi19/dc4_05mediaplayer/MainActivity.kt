@@ -4,30 +4,35 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.*
+import android.os.Bundle
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
+import android.os.RemoteException
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.roynaldi19.dc4_05mediaplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     companion object {
         const val TAG = "MainActivity"
     }
 
-    private var mService: Messenger? = null
+    private var mediaService: Messenger? = null
 
     private lateinit var boundServiceIntent: Intent
     private var serviceBound = false
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
-            mService = null
+            mediaService = null
             serviceBound = false
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            mService = Messenger(service)
+            mediaService = Messenger(service)
             serviceBound = true
         }
     }
@@ -37,11 +42,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       
+
         binding.btnPlay.setOnClickListener {
             if (serviceBound) {
                 try {
-                    mService?.send(Message.obtain(null, MediaService.PLAY, 0, 0))
+                    mediaService?.send(Message.obtain(null, MediaService.PLAY, 0, 0))
                 } catch (e: RemoteException) {
                     e.printStackTrace()
                 }
@@ -50,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnStop.setOnClickListener {
             if (serviceBound) {
                 try {
-                    mService?.send(Message.obtain(null, MediaService.STOP, 0, 0))
+                    mediaService?.send(Message.obtain(null, MediaService.STOP, 0, 0))
                 } catch (e: RemoteException) {
                     e.printStackTrace()
                 }

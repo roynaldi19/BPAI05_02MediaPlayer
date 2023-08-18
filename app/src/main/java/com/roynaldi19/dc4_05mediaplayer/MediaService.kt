@@ -8,7 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.os.*
+import android.os.Build
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.os.Message
+import android.os.Messenger
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import java.io.IOException
@@ -19,8 +24,8 @@ class MediaService : Service(), MediaPlayerCallback {
     private var isReady: Boolean = false
 
     companion object {
-        const val ACTION_CREATE = "com.dicoding.picodiploma.mysound.mediaservice.create"
-        const val ACTION_DESTROY = "com.dicoding.picodiploma.mysound.mediaservice.destroy"
+        const val ACTION_CREATE = "com.roynaldi19.dc4_05mediaplayer.create"
+        const val ACTION_DESTROY = "com.roynaldi19.dc4_05mediaplayer.destroy"
         const val TAG = "MediaService"
         const val PLAY = 0
         const val STOP = 1
@@ -35,9 +40,11 @@ class MediaService : Service(), MediaPlayerCallback {
                 ACTION_CREATE -> if (mediaPlayer == null) {
                     init()
                 }
+
                 ACTION_DESTROY -> if (mediaPlayer?.isPlaying as Boolean) {
                     stopSelf()
                 }
+
                 else -> {
                     init()
                 }
@@ -152,5 +159,4 @@ class MediaService : Service(), MediaPlayerCallback {
     private fun stopNotif() {
         stopForeground(false)
     }
-
 }
